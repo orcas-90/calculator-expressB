@@ -17,8 +17,7 @@ app.get('/', (req, res) => {
   res.sendFile('/Users/nnl/calculatorExpressB/database.json');
 });
 
-app.put('/calculator/plus:id', (req, res) => {
-  const id = req.params.id;
+app.put('/calculator/plus', (req, res) => {
   let value = req.body.value;
   let count = req.body.count;
   const database = fs.readFileSync(
@@ -28,114 +27,97 @@ app.put('/calculator/plus:id', (req, res) => {
 
   const data = JSON.parse(database);
   result = +data.count;
-  if (data.id === +id) {
-    count = value + result;
-    data.count = +count;
+  count = value + result;
+  data.count = +count;
 
-    fs.writeFileSync(
-      path.join(__dirname, 'database.json'),
-      JSON.stringify(data, null, 4),
-      'utf-8'
-    );
+  fs.writeFileSync(
+    path.join(__dirname, 'database.json'),
+    JSON.stringify(data, null, 4),
+    'utf-8'
+  );
 
-    res.send(
-      JSON.stringify({
-        id,
-        count,
-      })
-    );
-    return;
-  } else res.sendStatus(404);
+  res.send(
+    JSON.stringify({
+      count,
+    })
+  );
 });
 
-app.put('/calculator/minus:id', (req, res) => {
-    const id = req.params.id;
-    let value = req.body.value;
-    let count = req.body.count;
-    const database = fs.readFileSync(
-      path.join(__dirname, 'database.json'),
-      'utf-8'
-    );
+app.put('/calculator/minus', (req, res) => {
+  let value = req.body.value;
+  let count = req.body.count;
+  const database = fs.readFileSync(
+    path.join(__dirname, 'database.json'),
+    'utf-8'
+  );
 
-    const data = JSON.parse(database);
-    result = +data.count;
-    if (data.id === +id) {
-      count = result - value;
-      data.count = count;
+  const data = JSON.parse(database);
+  result = +data.count;
+  count = result - value;
+  data.count = count;
 
-      fs.writeFileSync(
-        path.join(__dirname, 'database.json'),
-        JSON.stringify(data, null, 4),
-        'utf-8'
-      );
+  fs.writeFileSync(
+    path.join(__dirname, 'database.json'),
+    JSON.stringify(data, null, 4),
+    'utf-8'
+  );
 
-      res.send(
-        JSON.stringify({
-          id,
-          count,
-        })
-      );
-      return;
-    } else res.sendStatus(404);
-  });
+  res.send(
+    JSON.stringify({
+      count,
+    })
+  );
+});
 
-  app.put('/calculator/multiply:id', (req, res) => {
-    const id = req.params.id;
-    let value = req.body.value;
-    let count = req.body.count;
-    const database = fs.readFileSync(
-      path.join(__dirname, 'database.json'),
-      'utf-8'
-    );
+app.put('/calculator/multiply', (req, res) => {
+  let value = req.body.value;
+  let count = req.body.count;
+  const database = fs.readFileSync(
+    path.join(__dirname, 'database.json'),
+    'utf-8'
+  );
 
-    const data = JSON.parse(database);
-    result = +data.count;
-    if (data.id === +id) {
-      count = value * result;
-      data.count = count;
+  const data = JSON.parse(database);
+  result = +data.count;
 
-      fs.writeFileSync(
-        path.join(__dirname, 'database.json'),
-        JSON.stringify(data, null, 4),
-        'utf-8'
-      );
+  count = value * result;
+  data.count = count;
 
-      res.send(
-        JSON.stringify({
-          id,
-          count,
-        })
-      );
-      return;
-    } else res.sendStatus(404);
-  });
-  app.put('/calculator/divide:id', (req, res) => {
-    const id = req.params.id;
-    let value = req.body.value;
-    let count = req.body.count;
-    const database = fs.readFileSync(
-      path.join(__dirname, 'database.json'),
-      'utf-8'
-    );
+  fs.writeFileSync(
+    path.join(__dirname, 'database.json'),
+    JSON.stringify(data, null, 4),
+    'utf-8'
+  );
 
-    const data = JSON.parse(database);
-    result = +data.count;
-    if (data.id === +id) {
-      count = result / value;
-      data.count = count;
+  res.send(
+    JSON.stringify({
+      count,
+    })
+  );
+});
+app.put('/calculator/divide', (req, res) => {
+  let value = req.body.value;
+  let count = req.body.count;
+  const database = fs.readFileSync(
+    path.join(__dirname, 'database.json'),
+    'utf-8'
+  );
 
-      fs.writeFileSync(
-        path.join(__dirname, 'database.json'),
-        JSON.stringify(data, null, 4),
-        'utf-8'
-      );
+  const data = JSON.parse(database);
+  result = +data.count;
 
-      res.send(
-        JSON.stringify({
-          id,
-          count,
-        })
-      );
-      return;
-    } else res.sendStatus(404);
-  });
+  count = result / value;
+  data.count = count;
+
+  fs.writeFileSync(
+    path.join(__dirname, 'database.json'),
+    JSON.stringify(data, null, 4),
+    'utf-8'
+  );
+
+  res.send(
+    JSON.stringify({
+      count,
+    })
+  );
+});
